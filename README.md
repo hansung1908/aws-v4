@@ -65,3 +65,21 @@ show variables like 'c%';
 # 한글 깨짐 방지를 위해 utf8mb4로 설정
 alter database testdb character set = 'utf8mb4' collate = 'utf8mb4_general_ci';
 ```
+
+### 프로젝트 배포 및 테스트
+- yml 설정시 엘라스틱 빈스톡 환경 속성을 사용하기 위해 하드코딩이 아닌 환경변수 설정
+```shell
+  datasource:
+    url: jdbc:mysql://${rds.hostname}:${rds.port}/${rds.db.name}?serverTimezone=Asia/Seoul
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: ${rds.username}
+    password: ${rds.password}
+```
+
+- 테스트할 프로젝트를 jar 파일로 생성
+```shell
+./gradlew build
+```
+
+- 엘라스틱 빈스톡 환경에 업로드 및 배포
+- 테스트 진행시, insomnia 같은 테스트툴을 사용해 테스트
