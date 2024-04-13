@@ -33,3 +33,35 @@ RDS_PASSWORD = '임의의 비밀번호'
 - 보안 설정을 통해 다른 접속은 차단하기 위해 기존 보안 그룹에 인바운드 규칙 수정
 - 3306 포트로 로컬 컴퓨터 ip와 보안 그룹을 추가하여 두 경로로만 접근 허용
 - 이후 보안 그룹에 다른 ec2를 추가하기만 하면 접속 가능
+
+### db 생성
+- mysql workbench를 통해 rds에 접속
+- connection 생성시, 호스트 이름은 rds 엔드포인트 + 포트는 3306 + 유저 이름과 비밀번호는 임의로 설정
+- rds에서 테스트할 db 생성
+```shell
+# db 생성
+create database testdb;
+
+# db 선택
+use testdb;
+
+# 테이블 생성
+create table Book (
+	id bigint auto_increment primary key,
+    title varchar(255),
+    content varchar(255),
+    author varchar(255)
+);
+
+# 테이블 확인  
+select * from Book;
+```
+
+- 한글 깨짐 문제를 해결하기 위한 설정
+```shell
+# character_set_database, character_set_server, collation_database 등 c로 시작하는 설정 확인
+show variables like 'c%';
+
+# 한글 깨짐 방지를 위해 utf8mb4로 설정
+alter database testdb character set = 'utf8mb4' collate = 'utf8mb4_general_ci';
+```
