@@ -1,5 +1,12 @@
 # aws-v4
 
+### Springboot 2.6.6, JDK 11
+- devtools
+- springweb
+- lombok
+- jpa
+- mysql
+
 ### 엘라스틱 빈스톡 종료
 - 종료시, ec2도 함께 종료
 - 빈스톡 어플리케이션과 ec2 보안 규칙은 남아 있으므로 따로 삭제
